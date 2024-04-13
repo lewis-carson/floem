@@ -15,13 +15,19 @@ fn view_one() -> impl View {
     label(|| "A view")
 }
 
+// Define a function `view_two` that takes a `RwSignal<ViewSwitcher>` as input and returns an implementation of the `View` trait.
 fn view_two(view: RwSignal<ViewSwitcher>) -> impl View {
+    // Create a vertical stack of views.
     v_stack((
+        // Create a label with the text "Another view".
         label(|| "Another view"),
+        // Create a button with the text "Switch back" and attach an event handler to it.
         button(|| "Switch back").on_click_stop(move |_| {
+            // When the button is clicked, set the value of the `view` signal to `ViewSwitcher::One`.
             view.set(ViewSwitcher::One);
         }),
     ))
+    // Apply a style to the vertical stack, setting the gap between views to 0.0 vertically and 10.0 horizontally.
     .style(|s| s.gap(0.0, 10.0))
 }
 

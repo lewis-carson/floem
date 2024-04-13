@@ -5,12 +5,31 @@ use floem::{
     view::View,
     views::{empty, label, v_stack, Decorators},
 };
-
+/// Creates a colored label view based on the current context color.
+///
+/// # Arguments
+///
+/// * `text` - The text to display in the label.
+///
+/// # Returns
+///
+/// A colored label view.
 fn colored_label(text: String) -> impl View {
     let color: Color = use_context().unwrap();
     label(move || text.clone()).style(move |s| s.color(color))
 }
 
+/// Creates a container view with a colored label and a nested view.
+///
+/// # Arguments
+///
+/// * `color` - The color of the container.
+/// * `name` - The name of the container.
+/// * `view_fn` - A function that returns the nested view.
+///
+/// # Returns
+///
+/// A container view with the colored label and the nested view.
 fn context_container<V: View + 'static>(
     color: Color,
     name: String,
@@ -26,7 +45,7 @@ fn context_container<V: View + 'static>(
             .items_center()
     })
 }
-
+/// Represents the main view of the application.
 fn app_view() -> impl View {
     provide_context(Color::BLACK);
 
